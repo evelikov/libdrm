@@ -130,6 +130,7 @@ extern "C" {
 #define DRM_MODE_ENCODER_TVDAC   4
 #define DRM_MODE_ENCODER_VIRTUAL 5
 #define DRM_MODE_ENCODER_DSI     6
+#define DRM_MODE_ENCODER_DPMST   7
 
 #define DRM_MODE_SUBCONNECTOR_Automatic 0
 #define DRM_MODE_SUBCONNECTOR_Unknown   0
