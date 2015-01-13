@@ -82,6 +82,7 @@ struct connector {
 	drmModeConnector *connector;
 	drmModeObjectProperties *props;
 	drmModePropertyRes **props_info;
+	char *name;
 };
 
 struct fb {
@@ -327,7 +328,7 @@ static void dump_connectors(struct device *dev)
 	int i, j;
 
 	printf("Connectors:\n");
-	printf("id\tencoder\tstatus\t\ttype\tsize (mm)\tmodes\tencoders\n");
+	printf("id\tencoder\tstatus\t\tname\t\tsize (mm)\tmodes\tencoders\n");
 	for (i = 0; i < dev->resources->res->count_connectors; i++) {
 		struct connector *_connector = &dev->resources->connectors[i];
 		drmModeConnector *connector = _connector->connector;
@@ -338,7 +339,7 @@ static void dump_connectors(struct device *dev)
 		       connector->connector_id,
 		       connector->encoder_id,
 		       util_lookup_connector_status_name(connector->connection),
-		       util_lookup_connector_type_name(connector->connector_type),
+		       _connector->name,
 		       connector->mmWidth, connector->mmHeight,
 		       connector->count_modes);
 
@@ -464,12 +465,13 @@ static void dump_planes(struct device *dev)
 
 static void free_resources(struct resources *res)
 {
+	int i;
+
 	if (!res)
 		return;
 
 #define free_resource(_res, __res, type, Type)					\
 	do {									\
-		int i;								\
 		if (!(_res)->type##s)						\
 			break;							\
 		for (i = 0; i < (int)(_res)->__res->count_##type##s; ++i) {	\
@@ -482,7 +484,6 @@ static void free_resources(struct resources *res)
 
 #define free_properties(_res, __res, type)					\
 	do {									\
-		int i;								\
 		for (i = 0; i < (int)(_res)->__res->count_##type##s; ++i) {	\
 			drmModeFreeObjectProperties(res->type##s[i].props);	\
 			free(res->type##s[i].props_info);			\
@@ -494,6 +495,10 @@ static void free_resources(struct resources *res)
 
 		free_resource(res, res, crtc, Crtc);
 		free_resource(res, res, encoder, Encoder);
+
+		for (i = 0; i < res->res->count_connectors; i++)
+			free(res->connectors[i].name);
+
 		free_resource(res, res, connector, Connector);
 		free_resource(res, res, fb, FB);
 
@@ -509,6 +514,47 @@ static void free_resources(struct resources *res)
 	}
 
 	free(res);
+}
+
+static unsigned int get_connector_index(struct resources *res, uint32_t type)
+{
+	unsigned int index = 0;
+	int i;
+
+	for (i = 0; i < res->res->count_connectors; i++)
+		if (res->connectors[i].connector->connector_type == type)
+			index++;
+
+	return index;
+}
+
+static unsigned int get_order(unsigned int value)
+{
+	unsigned int order = 0;
+
+	do {
+		value /= 10;
+		order++;
+	} while (value > 0);
+
+	return order - 1;
+}
+
+static void connector_set_name(struct connector *connector,
+			       struct resources *res)
+{
+	uint32_t type = connector->connector->connector_type;
+	const char *type_name;
+	unsigned int index;
+	int len;
+
+	type_name = util_lookup_connector_type_name(type);
+	index = get_connector_index(res, type);
+	len = strlen(type_name) + get_order(index) + 2;
+
+	connector->name = malloc(len + 1);
+	if (connector->name)
+		snprintf(connector->name, len + 1, "%s-%u", type_name,  index);
 }
 
 static struct resources *get_resources(struct device *dev)
@@ -561,6 +607,12 @@ static struct resources *get_resources(struct device *dev)
 	get_resource(res, res, encoder, Encoder);
 	get_resource(res, res, connector, Connector);
 	get_resource(res, res, fb, FB);
+
+	for (i = 0; i < res->res->count_connectors; i++) {
+		struct connector *connector = &res->connectors[i];
+
+		connector_set_name(connector, res);
+	}
 
 #define get_properties(_res, __res, type, Type)					\
 	do {									\
@@ -630,6 +682,21 @@ static int get_crtc_index(struct device *dev, uint32_t id)
 	return -1;
 }
 
+static drmModeConnector *get_connector_by_name(struct device *dev, const char *name)
+{
+	struct connector *connector;
+	int i;
+
+	for (i = 0; i < dev->resources->res->count_connectors; i++) {
+		connector = &dev->resources->connectors[i];
+
+		if (strcmp(connector->name, name) == 0)
+			return connector->connector;
+	}
+
+	return NULL;
+}
+
 static drmModeConnector *get_connector_by_id(struct device *dev, uint32_t id)
 {
 	drmModeConnector *connector;
@@ -670,6 +737,7 @@ static drmModeEncoder *get_encoder_by_id(struct device *dev, uint32_t id)
  * can bind it with a free crtc.
  */
 struct pipe_arg {
+	const char **cons;
 	uint32_t *con_ids;
 	unsigned int num_cons;
 	uint32_t crtc_id;
@@ -784,8 +852,8 @@ static int pipe_find_crtc_and_mode(struct device *dev, struct pipe_arg *pipe)
 					   pipe->mode_str, pipe->vrefresh);
 		if (mode == NULL) {
 			fprintf(stderr,
-				"failed to find mode \"%s\" for connector %u\n",
-				pipe->mode_str, pipe->con_ids[i]);
+				"failed to find mode \"%s\" for connector %s\n",
+				pipe->mode_str, pipe->cons[i]);
 			return -EINVAL;
 		}
 	}
@@ -1054,7 +1122,7 @@ static void set_mode(struct device *dev, struct pipe_arg *pipes, unsigned int co
 		printf("setting mode %s-%dHz@%s on connectors ",
 		       pipe->mode_str, pipe->mode->vrefresh, pipe->format_str);
 		for (j = 0; j < pipe->num_cons; ++j)
-			printf("%u, ", pipe->con_ids[j]);
+			printf("%s, ", pipe->cons[j]);
 		printf("crtc %d\n", pipe->crtc->crtc->crtc_id);
 
 		ret = drmModeSetCrtc(dev->fd, pipe->crtc->crtc->crtc_id, fb_id,
@@ -1230,18 +1298,28 @@ static int parse_connector(struct pipe_arg *pipe, const char *arg)
 
 	/* Count the number of connectors and allocate them. */
 	pipe->num_cons = 1;
-	for (p = arg; isdigit(*p) || *p == ','; ++p) {
+	for (p = arg; *p && *p != ':' && *p != '@'; ++p) {
 		if (*p == ',')
 			pipe->num_cons++;
 	}
 
-	pipe->con_ids = malloc(pipe->num_cons * sizeof *pipe->con_ids);
+	pipe->cons = malloc(pipe->num_cons * sizeof(*pipe->cons));
+	if (pipe->cons == NULL)
+		return -1;
+
+	pipe->con_ids = malloc(pipe->num_cons * sizeof(*pipe->con_ids));
 	if (pipe->con_ids == NULL)
 		return -1;
 
 	/* Parse the connectors. */
 	for (i = 0, p = arg; i < pipe->num_cons; ++i, p = endp + 1) {
-		pipe->con_ids[i] = strtoul(p, &endp, 10);
+		endp = strpbrk(p, ",@:");
+
+		if (endp)
+			pipe->cons[i] = strndup(p, endp - p);
+		else
+			pipe->cons[i] = strdup(p);
+
 		if (*endp != ',')
 			break;
 	}
@@ -1364,10 +1442,11 @@ static void usage(char *name)
 
 	fprintf(stderr, "\n Test options:\n\n");
 	fprintf(stderr, "\t-P <crtc_id>:<w>x<h>[+<x>+<y>][*<scale>][@<format>]\tset a plane\n");
-	fprintf(stderr, "\t-s <connector_id>[,<connector_id>][@<crtc_id>]:<mode>[-<vrefresh>][@<format>]\tset a mode\n");
+	fprintf(stderr, "\t-s <connector>[,<connector>][@<crtc_id>]:<mode>[-<vrefresh>][@<format>]\tset a mode\n");
 	fprintf(stderr, "\t-C\ttest hw cursor\n");
 	fprintf(stderr, "\t-v\ttest vsynced page flipping\n");
 	fprintf(stderr, "\t-w <obj_id>:<prop_name>:<value>\tset property\n");
+	fprintf(stderr, "\n\tConnectors can be specified either by name or by ID.\n");
 
 	fprintf(stderr, "\n Generic options:\n\n");
 	fprintf(stderr, "\t-d\tdrop master after mode set\n");
@@ -1405,6 +1484,32 @@ static int cursor_supported(void)
 	return 1;
 }
 
+static int pipe_resolve_connectors(struct pipe_arg *pipe, struct device *dev)
+{
+	drmModeConnector *connector;
+	unsigned int i;
+	uint32_t id;
+	char *endp;
+
+	for (i = 0; i < pipe->num_cons; i++) {
+		id = strtoul(pipe->cons[i], &endp, 10);
+		if (*endp != '\0') {
+			connector = get_connector_by_name(dev, pipe->cons[i]);
+			if (!connector) {
+				fprintf(stderr, "no connector named %s\n",
+					pipe->cons[i]);
+				return -ENODEV;
+			}
+
+			id = connector->connector_id;
+		}
+
+		pipe->con_ids[i] = id;
+	}
+
+	return 0;
+}
+
 static char optstr[] = "cdD:efM:P:ps:Cvw:";
 
 int main(int argc, char **argv)
@@ -1420,7 +1525,7 @@ int main(int argc, char **argv)
 	char *device = NULL;
 	char *module = NULL;
 	unsigned int i;
-	int count = 0, plane_count = 0;
+	unsigned int count = 0, plane_count = 0;
 	unsigned int prop_count = 0;
 	struct pipe_arg *pipe_args = NULL;
 	struct plane_arg *plane_args = NULL;
@@ -1557,6 +1662,14 @@ int main(int argc, char **argv)
 	if (!dev.resources) {
 		drmClose(dev.fd);
 		return 1;
+	}
+
+	for (i = 0; i < count; i++) {
+		if (pipe_resolve_connectors(&pipe_args[i], &dev) < 0) {
+			free_resources(dev.resources);
+			drmClose(dev.fd);
+			return 1;
+		}
 	}
 
 #define dump_resource(dev, res) if (res) dump_##res(dev)
