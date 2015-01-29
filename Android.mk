@@ -57,6 +57,7 @@ SUBDIRS := \
 	nouveau \
 	radeon \
 	libkms \
+	tests/util \
 	tests/modetest
 
 mkfiles := $(patsubst %,$(LIBDRM_TOP)/%/Android.mk,$(SUBDIRS))
