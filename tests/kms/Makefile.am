@@ -8,6 +8,9 @@ AM_CFLAGS = \
 
 noinst_LTLIBRARIES = libkms-test.la
 
+noinst_HEADERS = \
+	libkms-test.h
+
 libkms_test_la_SOURCES = \
 	libkms-test-crtc.c \
 	libkms-test-device.c \
