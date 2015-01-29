@@ -44,11 +44,6 @@
 
 #include "buffers.h"
 
-#ifdef HAVE_CAIRO
-#include <math.h>
-#include <cairo.h>
-#endif
-
 struct bo
 {
 	int fd;

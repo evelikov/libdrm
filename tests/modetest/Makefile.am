@@ -23,7 +23,6 @@ modetest_LDADD = \
 	-lpthread
 
 if HAVE_CAIRO
-AM_CFLAGS += $(CAIRO_CFLAGS)
 modetest_LDADD += $(CAIRO_LIBS)
 endif
 
