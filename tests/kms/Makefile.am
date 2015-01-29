@@ -41,4 +41,4 @@ kms_steal_crtc_SOURCES = kms-steal-crtc.c
 kms_steal_crtc_LDADD = ../util/libutil.la $(TEST_LIBS)
 
 kms_universal_planes_SOURCES = kms-universal-planes.c
-kms_universal_planes_LDADD = libkms-test.la
+kms_universal_planes_LDADD = $(TEST_LIBS)
