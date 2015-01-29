@@ -61,6 +61,7 @@
 
 #include "util/common.h"
 #include "util/format.h"
+#include "util/kms.h"
 #include "util/pattern.h"
 
 #include "buffers.h"
@@ -123,11 +124,6 @@ static inline int64_t U642I64(uint64_t val)
 	return (int64_t)*((int64_t *)&val);
 }
 
-struct type_name {
-	int type;
-	const char *name;
-};
-
 #define type_name_fn(res) \
 const char * res##_str(int type) {			\
 	unsigned int i;					\
@@ -137,44 +133,6 @@ const char * res##_str(int type) {			\
 	}						\
 	return "(invalid)";				\
 }
-
-struct type_name encoder_type_names[] = {
-	{ DRM_MODE_ENCODER_NONE, "none" },
-	{ DRM_MODE_ENCODER_DAC, "DAC" },
-	{ DRM_MODE_ENCODER_TMDS, "TMDS" },
-	{ DRM_MODE_ENCODER_LVDS, "LVDS" },
-	{ DRM_MODE_ENCODER_TVDAC, "TVDAC" },
-};
-
-static type_name_fn(encoder_type)
-
-struct type_name connector_status_names[] = {
-	{ DRM_MODE_CONNECTED, "connected" },
-	{ DRM_MODE_DISCONNECTED, "disconnected" },
-	{ DRM_MODE_UNKNOWNCONNECTION, "unknown" },
-};
-
-static type_name_fn(connector_status)
-
-struct type_name connector_type_names[] = {
-	{ DRM_MODE_CONNECTOR_Unknown, "unknown" },
-	{ DRM_MODE_CONNECTOR_VGA, "VGA" },
-	{ DRM_MODE_CONNECTOR_DVII, "DVI-I" },
-	{ DRM_MODE_CONNECTOR_DVID, "DVI-D" },
-	{ DRM_MODE_CONNECTOR_DVIA, "DVI-A" },
-	{ DRM_MODE_CONNECTOR_Composite, "composite" },
-	{ DRM_MODE_CONNECTOR_SVIDEO, "s-video" },
-	{ DRM_MODE_CONNECTOR_LVDS, "LVDS" },
-	{ DRM_MODE_CONNECTOR_Component, "component" },
-	{ DRM_MODE_CONNECTOR_9PinDIN, "9-pin DIN" },
-	{ DRM_MODE_CONNECTOR_DisplayPort, "DP" },
-	{ DRM_MODE_CONNECTOR_HDMIA, "HDMI-A" },
-	{ DRM_MODE_CONNECTOR_HDMIB, "HDMI-B" },
-	{ DRM_MODE_CONNECTOR_TV, "TV" },
-	{ DRM_MODE_CONNECTOR_eDP, "eDP" },
-};
-
-static type_name_fn(connector_type)
 
 #define bit_name_fn(res)					\
 const char * res##_str(int type) {				\
@@ -235,7 +193,7 @@ static void dump_encoders(struct device *dev)
 		printf("%d\t%d\t%s\t0x%08x\t0x%08x\n",
 		       encoder->encoder_id,
 		       encoder->crtc_id,
-		       encoder_type_str(encoder->encoder_type),
+		       util_lookup_encoder_type_name(encoder->encoder_type),
 		       encoder->possible_crtcs,
 		       encoder->possible_clones);
 	}
@@ -379,8 +337,8 @@ static void dump_connectors(struct device *dev)
 		printf("%d\t%d\t%s\t%s\t%dx%d\t\t%d\t",
 		       connector->connector_id,
 		       connector->encoder_id,
-		       connector_status_str(connector->connection),
-		       connector_type_str(connector->connector_type),
+		       util_lookup_connector_status_name(connector->connection),
+		       util_lookup_connector_type_name(connector->connector_type),
 		       connector->mmWidth, connector->mmHeight,
 		       connector->count_modes);
 
