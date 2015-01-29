@@ -29,5 +29,11 @@ noinst_PROGRAMS = \
 	kms-steal-crtc
 endif
 
+TEST_LIBS = libkms-test.la
+
+if HAVE_CAIRO
+TEST_LIBS += $(CAIRO_LIBS)
+endif
+
 kms_steal_crtc_SOURCES = kms-steal-crtc.c
-kms_steal_crtc_LDADD = libkms-test.la ../util/libutil.la
+kms_steal_crtc_LDADD = ../util/libutil.la $(TEST_LIBS)
