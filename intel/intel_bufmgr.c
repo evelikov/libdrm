@@ -249,18 +249,6 @@ drm_intel_bo_set_tiling(drm_intel_bo *bo, uint32_t * tiling_mode,
 }
 
 int
-drm_intel_bo_get_tiling(drm_intel_bo *bo, uint32_t * tiling_mode,
-			uint32_t * swizzle_mode)
-{
-	if (bo->bufmgr->bo_get_tiling)
-		return bo->bufmgr->bo_get_tiling(bo, tiling_mode, swizzle_mode);
-
-	*tiling_mode = I915_TILING_NONE;
-	*swizzle_mode = I915_BIT_6_SWIZZLE_NONE;
-	return 0;
-}
-
-int
 drm_intel_bo_set_softpin_offset(drm_intel_bo *bo, uint64_t offset)
 {
 	if (bo->bufmgr->bo_set_softpin_offset)

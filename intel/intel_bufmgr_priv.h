@@ -231,16 +231,6 @@ struct _drm_intel_bufmgr {
 			      uint32_t stride);
 
 	/**
-	 * Get the current tiling (and resulting swizzling) mode for the bo.
-	 *
-	 * \param buf Buffer to get tiling mode for
-	 * \param tiling_mode returned tiling mode
-	 * \param swizzle_mode returned swizzling mode
-	 */
-	int (*bo_get_tiling) (drm_intel_bo *bo, uint32_t * tiling_mode,
-			      uint32_t * swizzle_mode);
-
-	/**
 	 * Set the offset at which this buffer will be softpinned
 	 * \param bo Buffer to set the softpin offset for
 	 * \param offset Softpin offset

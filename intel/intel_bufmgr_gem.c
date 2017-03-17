@@ -294,10 +294,6 @@ static unsigned int
 drm_intel_gem_compute_batch_space(drm_intel_bo ** bo_array, int count);
 
 static int
-drm_intel_gem_bo_get_tiling(drm_intel_bo *bo, uint32_t * tiling_mode,
-			    uint32_t * swizzle_mode);
-
-static int
 drm_intel_gem_bo_set_tiling_internal(drm_intel_bo *bo,
 				     uint32_t tiling_mode,
 				     uint32_t stride);
@@ -2601,8 +2597,8 @@ drm_intel_gem_bo_set_tiling(drm_intel_bo *bo, uint32_t * tiling_mode,
 	return ret;
 }
 
-static int
-drm_intel_gem_bo_get_tiling(drm_intel_bo *bo, uint32_t * tiling_mode,
+int
+drm_intel_gem_get_tiling(drm_intel_bo *bo, uint32_t * tiling_mode,
 			    uint32_t * swizzle_mode)
 {
 	drm_intel_bo_gem *bo_gem = (drm_intel_bo_gem *) bo;
@@ -3718,7 +3714,6 @@ drm_intel_bufmgr_gem_init(int fd, int batch_size)
 	bufmgr_gem->bufmgr.bo_emit_reloc_fence = drm_intel_gem_bo_emit_reloc_fence;
 	bufmgr_gem->bufmgr.bo_pin = drm_intel_gem_bo_pin;
 	bufmgr_gem->bufmgr.bo_unpin = drm_intel_gem_bo_unpin;
-	bufmgr_gem->bufmgr.bo_get_tiling = drm_intel_gem_bo_get_tiling;
 	bufmgr_gem->bufmgr.bo_set_tiling = drm_intel_gem_bo_set_tiling;
 	bufmgr_gem->bufmgr.bo_flink = drm_intel_gem_bo_flink;
 	/* Use the new one if available */
