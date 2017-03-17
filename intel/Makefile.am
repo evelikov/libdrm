@@ -45,28 +45,9 @@ libdrm_intel2_la_SOURCES = $(LIBDRM_INTEL_FILES)
 libdrm_intel2includedir = ${includedir}/libdrm2
 libdrm_intel2include_HEADERS = $(LIBDRM_INTEL_H_FILES)
 
-# This may be interesting even outside of "make check", due to the -dump option.
-noinst_PROGRAMS = test_decode
+TESTS = intel-symbol-check
 
-BATCHES = \
-	tests/gen4-3d.batch \
-	tests/gm45-3d.batch \
-	tests/gen5-3d.batch \
-	tests/gen6-3d.batch \
-	tests/gen7-2d-copy.batch \
-	tests/gen7-3d.batch
-
-TESTS = \
-	$(BATCHES:.batch=.batch.sh) \
-	intel-symbol-check
-
-EXTRA_DIST = \
-	$(BATCHES) \
-	$(BATCHES:.batch=.batch.sh) \
-	$(BATCHES:.batch=.batch-ref.txt) \
-	$(BATCHES:.batch=.batch-ref.txt) \
-	tests/test-batch.sh \
-	$(TESTS)
+EXTRA_DIST = $(TESTS)
 
 test_decode_LDADD = libdrm_intel.la ../libdrm.la
 

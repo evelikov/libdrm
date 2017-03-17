@@ -2,7 +2,6 @@ LIBDRM_INTEL_FILES := \
 	intel_bufmgr.c \
 	intel_bufmgr_priv.h \
 	intel_bufmgr_gem.c \
-	intel_decode.c \
 	intel_chipset.h \
 	uthash.h
 

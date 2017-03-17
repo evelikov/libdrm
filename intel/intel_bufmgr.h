@@ -207,18 +207,6 @@ int drm_intel_bo_gem_export_to_prime(drm_intel_bo *bo, int *prime_fd);
 drm_intel_bo *drm_intel_bo_gem_create_from_prime(drm_intel_bufmgr *bufmgr,
 						int prime_fd, int size);
 
-struct drm_intel_decode *drm_intel_decode_context_alloc(uint32_t devid);
-void drm_intel_decode_context_free(struct drm_intel_decode *ctx);
-void drm_intel_decode_set_batch_pointer(struct drm_intel_decode *ctx,
-					void *data, uint32_t hw_offset,
-					int count);
-void drm_intel_decode_set_dump_past_end(struct drm_intel_decode *ctx,
-					int dump_past_end);
-void drm_intel_decode_set_head_tail(struct drm_intel_decode *ctx,
-				    uint32_t head, uint32_t tail);
-void drm_intel_decode_set_output_file(struct drm_intel_decode *ctx, FILE *out);
-void drm_intel_decode(struct drm_intel_decode *ctx);
-
 int drm_intel_reg_read(drm_intel_bufmgr *bufmgr,
 		       uint32_t offset,
 		       uint64_t *result);
