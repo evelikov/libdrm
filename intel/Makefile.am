@@ -32,18 +32,18 @@ AM_CFLAGS = \
 	$(VALGRIND_CFLAGS) \
 	-I$(top_srcdir)/include/drm
 
-libdrm_intel_la_LTLIBRARIES = libdrm_intel.la
-libdrm_intel_ladir = $(libdir)
-libdrm_intel_la_LDFLAGS = -version-number 1:0:0 -no-undefined
-libdrm_intel_la_LIBADD = ../libdrm.la \
+libdrm_intel2_la_LTLIBRARIES = libdrm_intel2.la
+libdrm_intel2_ladir = $(libdir)
+libdrm_intel2_la_LDFLAGS = -version-number 1:0:0 -no-undefined
+libdrm_intel2_la_LIBADD = ../libdrm.la \
 	@PTHREADSTUBS_LIBS@ \
 	@PCIACCESS_LIBS@ \
 	@CLOCK_LIB@
 
-libdrm_intel_la_SOURCES = $(LIBDRM_INTEL_FILES)
+libdrm_intel2_la_SOURCES = $(LIBDRM_INTEL_FILES)
 
-libdrm_intelincludedir = ${includedir}/libdrm
-libdrm_intelinclude_HEADERS = $(LIBDRM_INTEL_H_FILES)
+libdrm_intel2includedir = ${includedir}/libdrm2
+libdrm_intel2include_HEADERS = $(LIBDRM_INTEL_H_FILES)
 
 # This may be interesting even outside of "make check", due to the -dump option.
 noinst_PROGRAMS = test_decode
