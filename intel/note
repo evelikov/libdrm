@@ -1,0 +1,6 @@
+General:
+sed command/script -> "how to update" for each step/change
+todo -> drop GEM from names
+todo -> drop typedefs
+todo -> remove uthash in fav of in-tree one
+todo -> split/rename bufmgr to device/other
