@@ -293,47 +293,6 @@ int drm_intel_get_eu_total(int fd, unsigned int *eu_total);
 int drm_intel_get_pooled_eu(int fd);
 int drm_intel_get_min_eu_in_pool(int fd);
 
-/** @{ Compatibility defines to keep old code building despite the symbol rename
- * from dri_* to drm_intel_*
- */
-#define dri_bo drm_intel_bo
-#define dri_bufmgr drm_intel_bufmgr
-#define dri_bo_alloc drm_intel_bo_alloc
-#define dri_bo_reference drm_intel_bo_reference
-#define dri_bo_unreference drm_intel_bo_unreference
-#define dri_bo_map drm_intel_bo_map
-#define dri_bo_unmap drm_intel_bo_unmap
-#define dri_bo_subdata drm_intel_bo_subdata
-#define dri_bo_get_subdata drm_intel_bo_get_subdata
-#define dri_bo_wait_rendering drm_intel_bo_wait_rendering
-#define dri_bufmgr_set_debug drm_intel_bufmgr_set_debug
-#define dri_bufmgr_destroy drm_intel_bufmgr_destroy
-#define dri_bo_exec drm_intel_bo_exec
-#define dri_bufmgr_check_aperture_space drm_intel_bufmgr_check_aperture_space
-#define dri_bo_emit_reloc(reloc_bo, read, write, target_offset,		\
-			  reloc_offset, target_bo)			\
-	drm_intel_bo_emit_reloc(reloc_bo, reloc_offset,			\
-				target_bo, target_offset,		\
-				read, write);
-#define dri_bo_pin drm_intel_bo_pin
-#define dri_bo_unpin drm_intel_bo_unpin
-#define dri_bo_get_tiling drm_intel_bo_get_tiling
-#define dri_bo_set_tiling(bo, mode) drm_intel_bo_set_tiling(bo, mode, 0)
-#define dri_bo_flink drm_intel_bo_flink
-#define intel_bufmgr_gem_init drm_intel_bufmgr_gem_init
-#define intel_bo_gem_create_from_name drm_intel_bo_gem_create_from_name
-#define intel_bufmgr_gem_enable_reuse drm_intel_bufmgr_gem_enable_reuse
-#define intel_bufmgr_fake_init drm_intel_bufmgr_fake_init
-#define intel_bufmgr_fake_set_last_dispatch drm_intel_bufmgr_fake_set_last_dispatch
-#define intel_bufmgr_fake_set_exec_callback drm_intel_bufmgr_fake_set_exec_callback
-#define intel_bufmgr_fake_set_fence_callback drm_intel_bufmgr_fake_set_fence_callback
-#define intel_bo_fake_alloc_static drm_intel_bo_fake_alloc_static
-#define intel_bo_fake_disable_backing_store drm_intel_bo_fake_disable_backing_store
-#define intel_bufmgr_fake_contended_lock_take drm_intel_bufmgr_fake_contended_lock_take
-#define intel_bufmgr_fake_evict_all drm_intel_bufmgr_fake_evict_all
-
-/** @{ */
-
 #if defined(__cplusplus)
 }
 #endif
