@@ -207,39 +207,6 @@ int drm_intel_bo_gem_export_to_prime(drm_intel_bo *bo, int *prime_fd);
 drm_intel_bo *drm_intel_bo_gem_create_from_prime(drm_intel_bufmgr *bufmgr,
 						int prime_fd, int size);
 
-/* drm_intel_bufmgr_fake.c */
-drm_intel_bufmgr *drm_intel_bufmgr_fake_init(int fd,
-					     unsigned long low_offset,
-					     void *low_virtual,
-					     unsigned long size,
-					     volatile unsigned int
-					     *last_dispatch);
-void drm_intel_bufmgr_fake_set_last_dispatch(drm_intel_bufmgr *bufmgr,
-					     volatile unsigned int
-					     *last_dispatch);
-void drm_intel_bufmgr_fake_set_exec_callback(drm_intel_bufmgr *bufmgr,
-					     int (*exec) (drm_intel_bo *bo,
-							  unsigned int used,
-							  void *priv),
-					     void *priv);
-void drm_intel_bufmgr_fake_set_fence_callback(drm_intel_bufmgr *bufmgr,
-					      unsigned int (*emit) (void *priv),
-					      void (*wait) (unsigned int fence,
-							    void *priv),
-					      void *priv);
-drm_intel_bo *drm_intel_bo_fake_alloc_static(drm_intel_bufmgr *bufmgr,
-					     const char *name,
-					     unsigned long offset,
-					     unsigned long size, void *virt);
-void drm_intel_bo_fake_disable_backing_store(drm_intel_bo *bo,
-					     void (*invalidate_cb) (drm_intel_bo
-								    * bo,
-								    void *ptr),
-					     void *ptr);
-
-void drm_intel_bufmgr_fake_contended_lock_take(drm_intel_bufmgr *bufmgr);
-void drm_intel_bufmgr_fake_evict_all(drm_intel_bufmgr *bufmgr);
-
 struct drm_intel_decode *drm_intel_decode_context_alloc(uint32_t devid);
 void drm_intel_decode_context_free(struct drm_intel_decode *ctx);
 void drm_intel_decode_set_batch_pointer(struct drm_intel_decode *ctx,
