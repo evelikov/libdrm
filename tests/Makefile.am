@@ -37,11 +37,5 @@ AM_CFLAGS = \
 
 LDADD = $(top_builddir)/libdrm.la
 
-TESTS = \
-	drmsl \
-	hash \
-	random
-
 check_PROGRAMS = \
-	$(TESTS) \
 	drmdevice
