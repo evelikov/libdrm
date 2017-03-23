@@ -171,3 +171,7 @@ TEGRA_FILES := \
 
 TEGRA_H_FILES := \
 	tegra/tegra.h
+
+VC4_H_FILES := \
+	vc4/vc4_packet.h \
+	vc4/vc4_qpu_defines.h

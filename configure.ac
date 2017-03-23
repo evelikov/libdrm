@@ -521,7 +521,6 @@ AC_CONFIG_FILES([
 	exynos/libdrm_exynos.pc
 	freedreno/libdrm_freedreno.pc
 	tegra/libdrm_tegra.pc
-	vc4/Makefile
 	vc4/libdrm_vc4.pc
 	etnaviv/libdrm_etnaviv.pc
 	tests/Makefile

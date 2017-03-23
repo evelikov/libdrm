@@ -50,10 +50,6 @@ if HAVE_LIBKMS
 LIBKMS_SUBDIR = libkms
 endif
 
-if HAVE_VC4
-VC4_SUBDIR = vc4
-endif
-
 if BUILD_MANPAGES
 if HAVE_MANPAGES_STYLESHEET
 MAN_SUBDIR = man
@@ -63,7 +59,6 @@ endif
 SUBDIRS = \
 	. \
 	$(LIBKMS_SUBDIR) \
-	$(VC4_SUBDIR) \
 	tests \
 	$(MAN_SUBDIR)
 
@@ -123,3 +118,5 @@ include omap/automake.mk
 include radeon/automake.mk
 
 include tegra/automake.mk
+
+include vc4/automake.mk

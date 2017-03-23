@@ -19,16 +19,10 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-include Makefile.sources
+if HAVE_VC4
+vc4includedir = ${includedir}/libdrm
+vc4include_HEADERS = $(VC4_H_FILES)
 
-AM_CFLAGS = \
-	$(WARN_CFLAGS) \
-	-I$(top_srcdir) \
-	$(PTHREADSTUBS_CFLAGS) \
-	$(VALGRIND_CFLAGS) \
-	-I$(top_srcdir)/include/drm
-
-libdrm_vc4includedir = ${includedir}/libdrm
-libdrm_vc4include_HEADERS = $(LIBDRM_VC4_H_FILES)
-
-pkgconfig_DATA = libdrm_vc4.pc
+vc4pkgconfigdir = @pkgconfigdir@
+vc4pkgconfig_DATA = vc4/libdrm_vc4.pc
+endif
