@@ -56,6 +56,18 @@ AMDGPU_FILES := \
 AMDGPU_H_FILES := \
 	amdgpu/amdgpu.h
 
+EXYNOS_FILES := \
+	exynos/exynos_drm.c \
+	exynos/exynos_fimg2d.c \
+	exynos/fimg2d_reg.h
+
+EXYNOS_COMMON_H_FILES := \
+	exynos/exynos_drm.h \
+	exynos/exynos_fimg2d.h
+
+EXYNOS_H_FILES := \
+	exynos/exynos_drmif.h
+
 NOUVEAU_FILES := \
 	nouveau/nouveau.c \
 	nouveau/pushbuf.c \

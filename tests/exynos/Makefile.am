@@ -30,17 +30,17 @@ noinst_PROGRAMS += \
 endif
 
 exynos_fimg2d_perf_LDADD = \
-	$(top_builddir)/libdrm.la \
-	$(top_builddir)/exynos/libdrm_exynos.la
+	$(top_builddir)/libdrm_exynos.la \
+	$(top_builddir)/libdrm.la
 
 exynos_fimg2d_event_LDADD = \
-	$(top_builddir)/libdrm.la \
-	$(top_builddir)/exynos/libdrm_exynos.la
+	$(top_builddir)/libdrm_exynos.la \
+	$(top_builddir)/libdrm.la
 
 exynos_fimg2d_test_LDADD = \
-	$(top_builddir)/libdrm.la \
 	$(top_builddir)/libkms/libkms.la \
-	$(top_builddir)/exynos/libdrm_exynos.la
+	$(top_builddir)/libdrm_exynos.la \
+	$(top_builddir)/libdrm.la
 
 exynos_fimg2d_test_SOURCES = \
 	exynos_fimg2d_test.c

@@ -62,10 +62,6 @@ if HAVE_OMAP
 OMAP_SUBDIR = omap
 endif
 
-if HAVE_EXYNOS
-EXYNOS_SUBDIR = exynos
-endif
-
 if HAVE_FREEDRENO
 FREEDRENO_SUBDIR = freedreno
 endif
@@ -94,7 +90,6 @@ SUBDIRS = \
 	$(INTEL_SUBDIR) \
 	$(RADEON_SUBDIR) \
 	$(OMAP_SUBDIR) \
-	$(EXYNOS_SUBDIR) \
 	$(FREEDRENO_SUBDIR) \
 	$(TEGRA_SUBDIR) \
 	$(VC4_SUBDIR) \
@@ -142,5 +137,7 @@ DRIVER_LIBDEPS = \
 	@CLOCK_LIB@
 
 include amdgpu/automake.mk
+
+include exynos/automake.mk
 
 include nouveau/automake.mk
