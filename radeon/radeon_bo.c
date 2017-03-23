@@ -33,8 +33,8 @@
 #include <config.h>
 #endif
 #include <libdrm_macros.h>
-#include <radeon_bo.h>
-#include <radeon_bo_int.h>
+#include "radeon_bo.h"
+#include "radeon_bo_int.h"
 
 void radeon_bo_debug(struct radeon_bo *bo, const char *op)
 {
