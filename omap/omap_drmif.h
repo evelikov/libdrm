@@ -29,7 +29,7 @@
 
 #include <xf86drm.h>
 #include <stdint.h>
-#include <omap_drm.h>
+#include "omap_drm.h"
 
 struct omap_bo;
 struct omap_device;
