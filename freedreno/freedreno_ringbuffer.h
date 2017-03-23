@@ -29,7 +29,7 @@
 #ifndef FREEDRENO_RINGBUFFER_H_
 #define FREEDRENO_RINGBUFFER_H_
 
-#include <freedreno_drmif.h>
+#include "freedreno_drmif.h"
 
 /* the ringbuffer object is not opaque so that OUT_RING() type stuff
  * can be inlined.  Note that users should not make assumptions about
