@@ -81,6 +81,33 @@ EXYNOS_COMMON_H_FILES := \
 EXYNOS_H_FILES := \
 	exynos/exynos_drmif.h
 
+FREEDRENO_FILES := \
+	freedreno/freedreno_device.c \
+	freedreno/freedreno_pipe.c \
+	freedreno/freedreno_priv.h \
+	freedreno/freedreno_ringbuffer.c \
+	freedreno/freedreno_bo.c \
+	freedreno/freedreno_bo_cache.c \
+	freedreno/msm/msm_bo.c \
+	freedreno/msm/msm_device.c \
+	freedreno/msm/msm_drm.h \
+	freedreno/msm/msm_pipe.c \
+	freedreno/msm/msm_priv.h \
+	freedreno/msm/msm_ringbuffer.c
+
+FREEDRENO_KGSL_FILES := \
+	freedreno/kgsl/kgsl_bo.c \
+	freedreno/kgsl/kgsl_device.c \
+	freedreno/kgsl/kgsl_drm.h \
+	freedreno/kgsl/kgsl_pipe.c \
+	freedreno/kgsl/kgsl_priv.h \
+	freedreno/kgsl/kgsl_ringbuffer.c \
+	freedreno/kgsl/msm_kgsl.h
+
+FREEDRENO_H_FILES := \
+	freedreno/freedreno_drmif.h \
+	freedreno/freedreno_ringbuffer.h
+
 NOUVEAU_FILES := \
 	nouveau/nouveau.c \
 	nouveau/pushbuf.c \

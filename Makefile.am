@@ -62,10 +62,6 @@ if HAVE_OMAP
 OMAP_SUBDIR = omap
 endif
 
-if HAVE_FREEDRENO
-FREEDRENO_SUBDIR = freedreno
-endif
-
 if HAVE_TEGRA
 TEGRA_SUBDIR = tegra
 endif
@@ -86,7 +82,6 @@ SUBDIRS = \
 	$(INTEL_SUBDIR) \
 	$(RADEON_SUBDIR) \
 	$(OMAP_SUBDIR) \
-	$(FREEDRENO_SUBDIR) \
 	$(TEGRA_SUBDIR) \
 	$(VC4_SUBDIR) \
 	tests \
@@ -136,5 +131,7 @@ include amdgpu/automake.mk
 include etnaviv/automake.mk
 
 include exynos/automake.mk
+
+include freedreno/automake.mk
 
 include nouveau/automake.mk
