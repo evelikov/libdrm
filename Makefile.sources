@@ -39,3 +39,22 @@ LIBDRM_INCLUDE_H_FILES := \
 
 LIBDRM_INCLUDE_VMWGFX_H_FILES := \
 	include/drm/vmwgfx_drm.h
+
+NOUVEAU_FILES := \
+	nouveau/nouveau.c \
+	nouveau/pushbuf.c \
+	nouveau/bufctx.c \
+	nouveau/abi16.c \
+	nouveau/private.h
+
+NOUVEAU_H_FILES := \
+	nouveau/nouveau.h
+
+NOUVEAU_IF_H_FILES := \
+	nouveau/nvif/class.h \
+	nouveau/nvif/cl0080.h \
+	nouveau/nvif/cl9097.h \
+	nouveau/nvif/if0002.h \
+	nouveau/nvif/if0003.h \
+	nouveau/nvif/ioctl.h \
+	nouveau/nvif/unpack.h

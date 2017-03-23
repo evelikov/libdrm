@@ -6,8 +6,8 @@ AM_CFLAGS = \
 	-I$(top_srcdir)
 
 LDADD = \
-	../../nouveau/libdrm_nouveau.la \
-	../../libdrm.la \
+	$(top_builddir)/libdrm_nouveau.la \
+	$(top_builddir)/libdrm.la \
 	-ldl
 
 TESTS = threaded

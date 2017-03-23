@@ -54,10 +54,6 @@ if HAVE_INTEL
 INTEL_SUBDIR = intel
 endif
 
-if HAVE_NOUVEAU
-NOUVEAU_SUBDIR = nouveau
-endif
-
 if HAVE_RADEON
 RADEON_SUBDIR = radeon
 endif
@@ -100,7 +96,6 @@ SUBDIRS = \
 	. \
 	$(LIBKMS_SUBDIR) \
 	$(INTEL_SUBDIR) \
-	$(NOUVEAU_SUBDIR) \
 	$(RADEON_SUBDIR) \
 	$(AMDGPU_SUBDIR) \
 	$(OMAP_SUBDIR) \
@@ -117,8 +112,10 @@ libdrm_ladir = $(libdir)
 libdrm_la_LDFLAGS = -version-number 2:4:0 -no-undefined
 libdrm_la_LIBADD = @CLOCK_LIB@ -lm
 
-libdrm_la_CPPFLAGS = -I$(top_srcdir)/include/drm
 AM_CFLAGS = \
+	-I$(top_srcdir) \
+	-I$(top_srcdir)/include/drm \
+	$(PTHREADSTUBS_CFLAGS) \
 	$(WARN_CFLAGS) \
 	$(VALGRIND_CFLAGS)
 
@@ -134,6 +131,7 @@ if HAVE_VMWGFX
 klibdrminclude_HEADERS += $(LIBDRM_INCLUDE_VMWGFX_H_FILES)
 endif
 
+TESTS =
 EXTRA_DIST = include/drm/README
 
 copy-headers :
@@ -142,3 +140,10 @@ copy-headers :
 commit-headers : copy-headers
 	git add include/drm/*.h
 	git commit -am "Copy headers from kernel $$(GIT_DIR=$(kernel_source)/.git git describe)"
+
+DRIVER_LIBDEPS = \
+	libdrm.la \
+	@PTHREADSTUBS_LIBS@ \
+	@CLOCK_LIB@
+
+include nouveau/automake.mk
