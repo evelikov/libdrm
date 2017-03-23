@@ -514,7 +514,6 @@ AC_CONFIG_FILES([
 	libkms/Makefile
 	libkms/libkms.pc
 	intel/libdrm_intel.pc
-	radeon/Makefile
 	radeon/libdrm_radeon.pc
 	amdgpu/libdrm_amdgpu.pc
 	nouveau/libdrm_nouveau.pc

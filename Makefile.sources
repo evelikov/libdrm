@@ -142,3 +142,25 @@ NOUVEAU_IF_H_FILES := \
 	nouveau/nvif/if0003.h \
 	nouveau/nvif/ioctl.h \
 	nouveau/nvif/unpack.h
+
+RADEON_FILES := \
+	radeon/radeon_bo_gem.c \
+	radeon/radeon_cs_gem.c \
+	radeon/radeon_cs_space.c \
+	radeon/radeon_bo.c \
+	radeon/radeon_cs.c \
+	radeon/radeon_surface.c
+
+RADEON_H_FILES := \
+	radeon/radeon_bo.h \
+	radeon/radeon_cs.h \
+	radeon/radeon_surface.h \
+	radeon/radeon_bo_gem.h \
+	radeon/radeon_cs_gem.h \
+	radeon/radeon_bo_int.h \
+	radeon/radeon_cs_int.h \
+	radeon/r600_pci_ids.h
+
+RADEON_BOF_FILES := \
+	radeon/bof.c \
+	radeon/bof.h

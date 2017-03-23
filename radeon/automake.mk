@@ -22,26 +22,21 @@
 # Authors:
 #    Jérôme Glisse <glisse@freedesktop.org>
 
-include Makefile.sources
+if HAVE_RADEON
+radeondir = $(libdir)
+radeon_LTLIBRARIES = libdrm_radeon.la
 
-AM_CFLAGS = \
-	$(WARN_CFLAGS) \
-	-I$(top_srcdir) \
-	$(PTHREADSTUBS_CFLAGS) \
-	-I$(top_srcdir)/include/drm
-
-libdrm_radeon_la_LTLIBRARIES = libdrm_radeon.la
-libdrm_radeon_ladir = $(libdir)
+libdrm_radeon_la_SOURCES = $(RADEON_FILES)
 libdrm_radeon_la_LDFLAGS = -version-number 1:0:1 -no-undefined
-libdrm_radeon_la_LIBADD = ../libdrm.la @PTHREADSTUBS_LIBS@
+libdrm_radeon_la_LIBADD = $(DRIVER_LIBDEPS)
 
-libdrm_radeon_la_SOURCES = $(LIBDRM_RADEON_FILES)
+radeonincludedir = ${includedir}/libdrm
+radeoninclude_HEADERS = $(RADEON_H_FILES)
 
-libdrm_radeonincludedir = ${includedir}/libdrm
-libdrm_radeoninclude_HEADERS = $(LIBDRM_RADEON_H_FILES)
+radeonpkgconfigdir = @pkgconfigdir@
+radeonpkgconfig_DATA = radeon/libdrm_radeon.pc
 
-pkgconfigdir = @pkgconfigdir@
-pkgconfig_DATA = libdrm_radeon.pc
-
-TESTS = radeon-symbol-check
-EXTRA_DIST = $(LIBDRM_RADEON_BOF_FILES) $(TESTS)
+TESTS += radeon/radeon-symbol-check
+endif
+EXTRA_DIST += radeon/radeon-symbol-check
+EXTRA_DIST += $(RADEON_BOF_FILES)

@@ -49,7 +49,7 @@
 #include "xf86atomic.h"
 #include "radeon_drm.h"
 
-/* Add LIBDRM_RADEON_BOF_FILES to libdrm_radeon_la_SOURCES when building with BOF_DUMP */
+/* Add RADEON_BOF_FILES to libdrm_radeon_la_SOURCES when building with BOF_DUMP */
 #define CS_BOF_DUMP 0
 #if CS_BOF_DUMP
 #include "bof.h"
