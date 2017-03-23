@@ -1,10 +1,10 @@
 AM_CFLAGS = \
 	-pthread \
 	$(WARN_CFLAGS)\
-	-I $(top_srcdir)/include/drm \
-	-I $(top_srcdir)/libkms/ \
-	-I $(top_srcdir)/exynos \
-	-I $(top_srcdir)
+	-I$(top_srcdir)/include/drm \
+	-I$(top_srcdir)/libkms/ \
+	-I$(top_srcdir)/exynos \
+	-I$(top_srcdir)
 
 bin_PROGRAMS =
 noinst_PROGRAMS =

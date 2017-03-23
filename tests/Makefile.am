@@ -32,8 +32,8 @@ endif
 
 AM_CFLAGS = \
 	$(WARN_CFLAGS)\
-	-I $(top_srcdir)/include/drm \
-	-I $(top_srcdir)
+	-I$(top_srcdir)/include/drm \
+	-I$(top_srcdir)
 
 LDADD = $(top_builddir)/libdrm.la
 

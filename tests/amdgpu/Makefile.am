@@ -1,7 +1,7 @@
 AM_CFLAGS = \
-	-I $(top_srcdir)/include/drm \
-	-I $(top_srcdir)/amdgpu \
-	-I $(top_srcdir)
+	-I$(top_srcdir)/include/drm \
+	-I$(top_srcdir)/amdgpu \
+	-I$(top_srcdir)
 
 LDADD = $(top_builddir)/libdrm.la \
 	$(top_builddir)/amdgpu/libdrm_amdgpu.la \

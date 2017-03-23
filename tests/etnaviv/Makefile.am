@@ -1,7 +1,7 @@
 AM_CFLAGS = \
-	-I $(top_srcdir)/include/drm \
-	-I $(top_srcdir)/etnaviv \
-	-I $(top_srcdir)
+	-I$(top_srcdir)/include/drm \
+	-I$(top_srcdir)/etnaviv \
+	-I$(top_srcdir)
 
 if HAVE_INSTALL_TESTS
 bin_PROGRAMS = \
