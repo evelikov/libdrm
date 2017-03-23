@@ -22,30 +22,26 @@
 # Authors:
 #    Eric Anholt <eric@anholt.net>
 
-include Makefile.sources
+if HAVE_INTEL
+inteldir = $(libdir)
+intel_LTLIBRARIES = libdrm_intel.la
 
-AM_CFLAGS = \
-	$(WARN_CFLAGS) \
-	-I$(top_srcdir) \
-	$(PTHREADSTUBS_CFLAGS) \
-	$(PCIACCESS_CFLAGS) \
-	$(VALGRIND_CFLAGS) \
-	-I$(top_srcdir)/include/drm
+libdrm_intel_la_CFLAGS = \
+	$(AM_CFLAGS) \
+	-I$(top_srcdir)/intel \
+	$(PCIACCESS_CFLAGS)
 
-libdrm_intel_la_LTLIBRARIES = libdrm_intel.la
-libdrm_intel_ladir = $(libdir)
+libdrm_intel_la_SOURCES = $(INTEL_FILES)
 libdrm_intel_la_LDFLAGS = -version-number 1:0:0 -no-undefined
-libdrm_intel_la_LIBADD = ../libdrm.la \
-	@PTHREADSTUBS_LIBS@ \
-	@PCIACCESS_LIBS@ \
-	@CLOCK_LIB@
+libdrm_intel_la_LIBADD = $(DRIVER_LIBDEPS) $(PCIACCESS_LIBS)
 
-libdrm_intel_la_SOURCES = $(LIBDRM_INTEL_FILES)
+intelincludedir = ${includedir}/libdrm
+intelinclude_HEADERS = $(INTEL_H_FILES)
 
-libdrm_intelincludedir = ${includedir}/libdrm
-libdrm_intelinclude_HEADERS = $(LIBDRM_INTEL_H_FILES)
+intelpkgconfigdir = @pkgconfigdir@
+intelpkgconfig_DATA = intel/libdrm_intel.pc
 
-TESTS = intel-symbol-check
-EXTRA_DIST = $(TESTS)
+TESTS += intel/intel-symbol-check
+endif
 
-pkgconfig_DATA = libdrm_intel.pc
+EXTRA_DIST += intel/intel-symbol-check

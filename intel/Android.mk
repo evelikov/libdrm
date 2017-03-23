@@ -21,15 +21,11 @@
 # IN THE SOFTWARE.
 #
 
-LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
-
-# Import variables LIBDRM_INTEL_FILES, LIBDRM_INTEL_H_FILES
-include $(LOCAL_PATH)/Makefile.sources
 
 LOCAL_MODULE := libdrm_intel
 
-LOCAL_SRC_FILES := $(LIBDRM_INTEL_FILES)
+LOCAL_SRC_FILES := $(INTEL_FILES)
 
 LOCAL_SHARED_LIBRARIES := \
 	libdrm \

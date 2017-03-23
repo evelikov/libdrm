@@ -50,10 +50,6 @@ if HAVE_LIBKMS
 LIBKMS_SUBDIR = libkms
 endif
 
-if HAVE_INTEL
-INTEL_SUBDIR = intel
-endif
-
 if HAVE_RADEON
 RADEON_SUBDIR = radeon
 endif
@@ -79,7 +75,6 @@ endif
 SUBDIRS = \
 	. \
 	$(LIBKMS_SUBDIR) \
-	$(INTEL_SUBDIR) \
 	$(RADEON_SUBDIR) \
 	$(OMAP_SUBDIR) \
 	$(TEGRA_SUBDIR) \
@@ -133,5 +128,7 @@ include etnaviv/automake.mk
 include exynos/automake.mk
 
 include freedreno/automake.mk
+
+include intel/automake.mk
 
 include nouveau/automake.mk

@@ -513,7 +513,6 @@ AC_CONFIG_FILES([
 	Makefile
 	libkms/Makefile
 	libkms/libkms.pc
-	intel/Makefile
 	intel/libdrm_intel.pc
 	radeon/Makefile
 	radeon/libdrm_radeon.pc

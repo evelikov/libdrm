@@ -108,6 +108,22 @@ FREEDRENO_H_FILES := \
 	freedreno/freedreno_drmif.h \
 	freedreno/freedreno_ringbuffer.h
 
+INTEL_FILES := \
+	intel/intel_bufmgr.c \
+	intel/intel_bufmgr_priv.h \
+	intel/intel_bufmgr_fake.c \
+	intel/intel_bufmgr_gem.c \
+	intel/intel_decode.c \
+	intel/intel_chipset.h \
+	intel/mm.c \
+	intel/mm.h \
+	intel/uthash.h
+
+INTEL_H_FILES := \
+	intel/intel_bufmgr.h \
+	intel/intel_aub.h \
+	intel/intel_debug.h
+
 NOUVEAU_FILES := \
 	nouveau/nouveau.c \
 	nouveau/pushbuf.c \
