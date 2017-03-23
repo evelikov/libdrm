@@ -528,7 +528,6 @@ AC_CONFIG_FILES([
 	tegra/libdrm_tegra.pc
 	vc4/Makefile
 	vc4/libdrm_vc4.pc
-	etnaviv/Makefile
 	etnaviv/libdrm_etnaviv.pc
 	tests/Makefile
 	tests/modeprint/Makefile

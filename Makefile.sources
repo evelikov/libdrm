@@ -56,6 +56,19 @@ AMDGPU_FILES := \
 AMDGPU_H_FILES := \
 	amdgpu/amdgpu.h
 
+ETNAVIV_FILES := \
+	etnaviv/etnaviv_device.c \
+	etnaviv/etnaviv_gpu.c \
+	etnaviv/etnaviv_bo.c \
+	etnaviv/etnaviv_bo_cache.c \
+	etnaviv/etnaviv_pipe.c \
+	etnaviv/etnaviv_cmd_stream.c \
+	etnaviv/etnaviv_drm.h \
+	etnaviv/etnaviv_priv.h
+
+ETNAVIV_H_FILES := \
+	etnaviv/etnaviv_drmif.h
+
 EXYNOS_FILES := \
 	exynos/exynos_drm.c \
 	exynos/exynos_fimg2d.c \

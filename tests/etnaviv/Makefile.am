@@ -16,8 +16,8 @@ noinst_PROGRAMS = \
 endif
 
 etnaviv_2d_test_LDADD = \
-	$(top_builddir)/libdrm.la \
-	$(top_builddir)/etnaviv/libdrm_etnaviv.la
+	$(top_builddir)/libdrm_etnaviv.la \
+	$(top_builddir)/libdrm.la
 
 etnaviv_2d_test_SOURCES = \
 	cmdstream.xml.h \
@@ -28,14 +28,14 @@ etnaviv_2d_test_SOURCES = \
 	write_bmp.h
 
 etnaviv_cmd_stream_test_LDADD = \
-	$(top_builddir)/etnaviv/libdrm_etnaviv.la
+	$(top_builddir)/libdrm_etnaviv.la
 
 etnaviv_cmd_stream_test_SOURCES = \
 	etnaviv_cmd_stream_test.c
 
 etnaviv_bo_cache_test_LDADD = \
-	$(top_builddir)/libdrm.la \
-	$(top_builddir)/etnaviv/libdrm_etnaviv.la
+	$(top_builddir)/libdrm_etnaviv.la \
+	$(top_builddir)/libdrm.la
 
 etnaviv_bo_cache_test_SOURCES = \
 	etnaviv_bo_cache_test.c
