@@ -54,10 +54,6 @@ if HAVE_RADEON
 RADEON_SUBDIR = radeon
 endif
 
-if HAVE_OMAP
-OMAP_SUBDIR = omap
-endif
-
 if HAVE_TEGRA
 TEGRA_SUBDIR = tegra
 endif
@@ -76,7 +72,6 @@ SUBDIRS = \
 	. \
 	$(LIBKMS_SUBDIR) \
 	$(RADEON_SUBDIR) \
-	$(OMAP_SUBDIR) \
 	$(TEGRA_SUBDIR) \
 	$(VC4_SUBDIR) \
 	tests \
@@ -132,3 +127,5 @@ include freedreno/automake.mk
 include intel/automake.mk
 
 include nouveau/automake.mk
+
+include omap/automake.mk

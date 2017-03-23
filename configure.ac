@@ -518,7 +518,6 @@ AC_CONFIG_FILES([
 	radeon/libdrm_radeon.pc
 	amdgpu/libdrm_amdgpu.pc
 	nouveau/libdrm_nouveau.pc
-	omap/Makefile
 	omap/libdrm_omap.pc
 	exynos/libdrm_exynos.pc
 	freedreno/libdrm_freedreno.pc
