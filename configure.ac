@@ -37,7 +37,7 @@ XORG_MACROS_VERSION(1.12)
 XORG_WITH_XSLTPROC
 XORG_MANPAGE_SECTIONS
 
-AM_INIT_AUTOMAKE([1.10 foreign dist-bzip2])
+AM_INIT_AUTOMAKE([1.10 foreign dist-bzip2 subdir-objects])
 
 # Enable quiet compiles on automake 1.11.
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
