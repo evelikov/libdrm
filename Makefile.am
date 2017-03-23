@@ -58,10 +58,6 @@ if HAVE_RADEON
 RADEON_SUBDIR = radeon
 endif
 
-if HAVE_AMDGPU
-AMDGPU_SUBDIR = amdgpu
-endif
-
 if HAVE_OMAP
 OMAP_SUBDIR = omap
 endif
@@ -97,7 +93,6 @@ SUBDIRS = \
 	$(LIBKMS_SUBDIR) \
 	$(INTEL_SUBDIR) \
 	$(RADEON_SUBDIR) \
-	$(AMDGPU_SUBDIR) \
 	$(OMAP_SUBDIR) \
 	$(EXYNOS_SUBDIR) \
 	$(FREEDRENO_SUBDIR) \
@@ -145,5 +140,7 @@ DRIVER_LIBDEPS = \
 	libdrm.la \
 	@PTHREADSTUBS_LIBS@ \
 	@CLOCK_LIB@
+
+include amdgpu/automake.mk
 
 include nouveau/automake.mk

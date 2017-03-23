@@ -3,8 +3,9 @@ AM_CFLAGS = \
 	-I$(top_srcdir)/amdgpu \
 	-I$(top_srcdir)
 
-LDADD = $(top_builddir)/libdrm.la \
-	$(top_builddir)/amdgpu/libdrm_amdgpu.la \
+LDADD = \
+	$(top_builddir)/libdrm_amdgpu.la \
+	$(top_builddir)/libdrm.la \
 	$(CUNIT_LIBS)
 
 if HAVE_INSTALL_TESTS

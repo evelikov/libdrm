@@ -22,26 +22,20 @@
 # Authors:
 #    Jérôme Glisse <glisse@freedesktop.org>
 
-include Makefile.sources
+if HAVE_AMDGPU
+amdgpudir = $(libdir)
+amdgpu_LTLIBRARIES = libdrm_amdgpu.la
 
-AM_CFLAGS = \
-	$(WARN_CFLAGS) \
-	-I$(top_srcdir) \
-	$(PTHREADSTUBS_CFLAGS) \
-	-I$(top_srcdir)/include/drm
-
-libdrm_amdgpu_la_LTLIBRARIES = libdrm_amdgpu.la
-libdrm_amdgpu_ladir = $(libdir)
+libdrm_amdgpu_la_SOURCES = $(AMDGPU_FILES)
 libdrm_amdgpu_la_LDFLAGS = -version-number 1:0:0 -no-undefined
-libdrm_amdgpu_la_LIBADD = ../libdrm.la @PTHREADSTUBS_LIBS@
+libdrm_amdgpu_la_LIBADD = $(DRIVER_LIBDEPS)
 
-libdrm_amdgpu_la_SOURCES = $(LIBDRM_AMDGPU_FILES)
+amdgpuincludedir = ${includedir}/libdrm
+amdgpuinclude_HEADERS = $(AMDGPU_H_FILES)
 
-libdrm_amdgpuincludedir = ${includedir}/libdrm
-libdrm_amdgpuinclude_HEADERS = $(LIBDRM_AMDGPU_H_FILES)
+amdgpupkgconfigdir = @pkgconfigdir@
+amdgpupkgconfig_DATA = amdgpu/libdrm_amdgpu.pc
 
-pkgconfigdir = @pkgconfigdir@
-pkgconfig_DATA = libdrm_amdgpu.pc
-
-TESTS = amdgpu-symbol-check
-EXTRA_DIST = $(TESTS)
+TESTS += amdgpu/amdgpu-symbol-check
+endif
+EXTRA_DIST += amdgpu/amdgpu-symbol-check

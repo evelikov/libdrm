@@ -40,6 +40,22 @@ LIBDRM_INCLUDE_H_FILES := \
 LIBDRM_INCLUDE_VMWGFX_H_FILES := \
 	include/drm/vmwgfx_drm.h
 
+AMDGPU_FILES := \
+	amdgpu/amdgpu_asic_id.h \
+	amdgpu/amdgpu_bo.c \
+	amdgpu/amdgpu_cs.c \
+	amdgpu/amdgpu_device.c \
+	amdgpu/amdgpu_gpu_info.c \
+	amdgpu/amdgpu_internal.h \
+	amdgpu/amdgpu_vamgr.c \
+	amdgpu/util_hash.c \
+	amdgpu/util_hash.h \
+	amdgpu/util_hash_table.c \
+	amdgpu/util_hash_table.h
+
+AMDGPU_H_FILES := \
+	amdgpu/amdgpu.h
+
 NOUVEAU_FILES := \
 	nouveau/nouveau.c \
 	nouveau/pushbuf.c \
