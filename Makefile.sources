@@ -164,3 +164,10 @@ RADEON_H_FILES := \
 RADEON_BOF_FILES := \
 	radeon/bof.c \
 	radeon/bof.h
+
+TEGRA_FILES := \
+	tegra/private.h \
+	tegra/tegra.c
+
+TEGRA_H_FILES := \
+	tegra/tegra.h

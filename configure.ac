@@ -520,7 +520,6 @@ AC_CONFIG_FILES([
 	omap/libdrm_omap.pc
 	exynos/libdrm_exynos.pc
 	freedreno/libdrm_freedreno.pc
-	tegra/Makefile
 	tegra/libdrm_tegra.pc
 	vc4/Makefile
 	vc4/libdrm_vc4.pc

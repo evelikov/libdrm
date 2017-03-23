@@ -50,10 +50,6 @@ if HAVE_LIBKMS
 LIBKMS_SUBDIR = libkms
 endif
 
-if HAVE_TEGRA
-TEGRA_SUBDIR = tegra
-endif
-
 if HAVE_VC4
 VC4_SUBDIR = vc4
 endif
@@ -67,7 +63,6 @@ endif
 SUBDIRS = \
 	. \
 	$(LIBKMS_SUBDIR) \
-	$(TEGRA_SUBDIR) \
 	$(VC4_SUBDIR) \
 	tests \
 	$(MAN_SUBDIR)
@@ -126,3 +121,5 @@ include nouveau/automake.mk
 include omap/automake.mk
 
 include radeon/automake.mk
+
+include tegra/automake.mk

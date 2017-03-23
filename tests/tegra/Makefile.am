@@ -6,8 +6,8 @@ AM_CPPFLAGS = \
 AM_CFLAGS = $(WARN_CFLAGS)
 
 LDADD = \
-	../../tegra/libdrm_tegra.la \
-	../../libdrm.la
+	$(top_builddir)/libdrm_tegra.la \
+	$(top_builddir)/libdrm.la
 
 noinst_PROGRAMS = \
 	openclose
